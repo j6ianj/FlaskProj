@@ -1,0 +1,15 @@
+{% extends "base.html"%}
+
+
+{% block title %}Tell Us A Little About Yourself{% endblock %}
+{% block content%}
+<form method="POST" id="bio">
+    <h3 align="center">Update Bio</h3>
+    <div class="form-group">
+      <label for="bio">Bio</label>
+      <input type="text" class="form-control" id="bio" name="bio" placeholder="" required />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% endblock %}

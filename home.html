@@ -1,0 +1,81 @@
+<!-- home.html -->
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">Twos</a>
+    <form class="form-inline my-2 my-lg-0" action="{{ url_for('views.search') }}" method="get">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search by phone number" aria-label="Search" name="query">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+
+<h1 align="center">Profile</h1>
+<form method="POST" enctype="multipart/form-data" action="{{ url_for('views.update_profile') }}">
+    {{ form.hidden_tag() }}
+    <div>
+        <label>Name</label><br>
+        <p>{{ user.first_name }}</p>
+    </div>
+    <div>
+        <label>Bio</label> <br>
+        <p>{{ user.bio }}</p>
+    </div>
+</form>
+
+{% if user.photos %}
+<div id="photoCarousel" class="carousel slide mt-5 mx-auto" data-ride="carousel" style="width: 50%;">
+    <div class="carousel-inner">
+        {% for photo in user.photos %}
+        <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+            <div class="position-relative">
+                <img src="{{ url_for('static', filename='uploads/' + photo) }}" class="d-block w-100 carousel-img" alt="Profile Photo">
+                <div class="carousel-caption d-none d-md-block position-absolute bottom-0 start-0 p-2" style="background-color: rgba(0, 0, 0, 0.5);">
+                    <p class="mb-0 text-white">{{ user.first_name }}, {{ user.age }}</p>
+                    <p class="mb-0 text-white">{{ user.location }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#photoCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#photoCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+{% endif %}
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#photoCarousel').carousel({
+            interval: 2000
+        });
+    });
+</script>
+{% endblock %}
+
+<style>
+.carousel-img {
+    height: 300px; /* Adjust the height as needed */
+    object-fit: cover; /* To ensure the image covers the entire area */
+}
+.carousel-caption {
+    bottom: 10px; /* Adjust the position as needed */
+    left: 10px;
+}
+</style>

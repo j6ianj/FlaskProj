@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Matches{% endblock %}
+
+{% block content %}
+<h1 align="center">Your Matches</h1>
+
+{% if matches %}
+<div class="row">
+    {% for match in matches %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            {% if match.photos %}
+            <img src="{{ url_for('static', filename='uploads/' + match.photos[0]) }}" class="card-img-top" alt="Profile Photo">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ match.first_name }}, {{ match.age() }}</h5>
+                <p class="card-text">{{ match.bio }}</p>
+                <p class="card-text"><small class="text-muted">{{ match.location }}</small></p>
+                <a href="{{ url_for('views.profile', user_id=match.id) }}" class="btn btn-primary">View Profile</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>No matches found within your preferences. Try adjusting your profile or check back later.</p>
+{% endif %}
+
+{% endblock %}

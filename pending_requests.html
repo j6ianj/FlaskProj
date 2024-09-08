@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Pending Friend Requests{% endblock %}
+
+{% block content %}
+<h1>Pending Friend Requests</h1>
+
+<h2>Send Friend Request</h2>
+<form method="POST" action="{{ url_for('views.send_request') }}">
+    <input type="text" name="phone_number" placeholder="Enter friend's phone number" required>
+    <button type="submit">Send Request</button>
+</form>
+
+<h2>Sent Requests</h2>
+<ul>
+    {% for request in sent_requests %}
+<li>{{ request.receiver.first_name }} ({{ request.receiver.email }})</li>
+    {%else%}
+    <p>You have not sent any friend requests.</p>
+    {% endfor %}
+</ul>
+
+<h2>Received Requests</h2>
+<ul>
+    {% for request in received_requests %}
+<li>
+    {{ request.sender.first_name }} ({{ request.sender.email }})
+    <form method="POST" action="{{ url_for('views.accept_friend_request', user_id=request.sender.id) }}">
+        <button type="submit">Accept</button>
+    </form>
+    <form method="POST" action="{{ url_for('views.reject_friend_request', user_id=request.sender.id) }}">
+        <button type="submit">Reject</button>
+    </form>
+</li>
+    {% else %}
+    <p>You have not received any friend requests.</p>
+    {% endfor %}
+</ul>
+{% endblock %}

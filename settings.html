@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Settings</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ form.bio.label(class="form-label") }}
+            {{ form.bio(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.gender.label(class="form-label") }}
+            {{ form.gender(class="form-select") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.preference.label(class="form-label") }}
+            {{ form.preference(class="form-select") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.location.label(class="form-label") }}
+            {{ form.location(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.height.label(class="form-label") }}
+            {{ form.height(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.college.label(class="form-label") }}
+            {{ form.college(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.hometown.label(class="form-label") }}
+            {{ form.hometown(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.profilePhoto.label(class="form-label") }}
+            {{ form.profilePhoto(class="form-control") }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

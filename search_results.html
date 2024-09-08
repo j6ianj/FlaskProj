@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Search Results</h1>
+<ul>
+    {% for result in results %}
+    <li>{{ result.first_name }} <form action="{{ url_for('views.add_friend', friend_id=result.id) }}" method="post" style="display:inline;">
+        <button type="submit" class="btn btn-primary">Add Friend</button>
+    </form></li>
+    {% endfor %}
+</ul>
+{% if not results %}
+<p>No users found.</p>
+{% endif %}
+{% endblock %}

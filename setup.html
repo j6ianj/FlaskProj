@@ -1,0 +1,31 @@
+{% extends base.html %}
+{% block title %} Let's Get To Know More About You? {% endblock %}
+{% block content %}
+<form method="POST">
+  <h3 align="center">Let's Get To Know More About You?</h3>
+  <div class="form-group">
+    <label for="gender">Gender</label>
+    <input type="text" class="form-control" id="gender" name="gender" placeholder="Gender" required />
+  </div>
+  <div class="form-group">
+    <label for="preference">Dating Preference</label>
+    <input type="text" class="form-control" id="preference" name="preference" placeholder="Dating Preference" required />
+  </div>
+  <div class="form-group">
+    <label for="height">Height</label>
+    <input type="number" class="form-control" id="height" name="height" placeholder="What is your height?" required />
+  </div>
+  <div class="form-group">
+    <label for="hometown">Hometown</label>
+    <input type="text" class="form-control" id="hometown" name="hometown" placeholder="What's your hometown?" required />
+  </div>
+  <div class="form-group">
+    <label for="college">College</label>
+    <input type="text" class="form-control" id="college" name="college" placeholder="What college did you attend?" required />
+  </div>
+  <br />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
+
+

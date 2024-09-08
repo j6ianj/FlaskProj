@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+
+{% block title %}Add Photos to Your Profile{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Add Photos to Your Profile</h1>
+   
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert alert-success">
+                {% for category, message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+   
+    <form method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.profilePhoto.label }}
+            {{ form.profilePhoto(class="form-control", multiple=True) }}
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+        <a href="{{ url_for('views.home') }}" class="btn btn-secondary">Finish</a>
+    </form>
+   
+    {% if photos %}
+    <div class="mt-3">
+        <p>Number of photos uploaded: {{ photos | length }}</p>
+    </div>
+    <div id="photoCarousel" class="carousel slide mt-5 mx-auto" data-ride="carousel" style="width: 50%;">
+        <div class="carousel-inner">
+            {% for photo in photos %}
+            <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+                <img src="{{ url_for('static', filename='uploads/' + photo) }}" class="d-block w-100 carousel-img" alt="Profile Photo">
+            </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#photoCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#photoCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJTY5KVphtPhzWj9WO1clHTMGaI3oW7bppsiZ5V5YVKyTUzaf" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-smHYkdHyU6BsnFv+0Onz5HUld8aHDEGHjqYOZ8lpP9ys2b1QVi0yNUPTflnoF4b1" crossorigin="anonymous"></script>
+
+
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+        $('#photoCarousel').carousel({
+            interval: 2000
+        });
+    });
+</script>
+{% endblock %}
+
+
+<style>
+.carousel-img {
+    height: 300px; /* Adjust the height as needed */
+    object-fit: cover; /* To ensure the image covers the entire area */
+}
+</style>
+{% endblock %}

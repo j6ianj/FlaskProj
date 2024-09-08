@@ -1,0 +1,26 @@
+
+{% extends "base.html" %}
+
+{% block title %}Friend Requests{% endblock %}
+
+{% block content %}
+<h1 align="center">Friend Requests</h1>
+
+{% if received_requests %}
+    <ul class="list-group">
+        {% for request in received_requests %}
+            <li class="list-group-item">
+                {{ request.first_name }}
+                <form method="POST" action="{{ url_for('views.accept_request', user_id=request.id) }}" style="display:inline;">
+                    <button type="submit" class="btn btn-success">Accept</button>
+                </form>
+                <form method="POST" action="{{ url_for('views.reject_request', user_id=request.id) }}" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Reject</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No friend requests.</p>
+{% endif %}
+{% endblock %}

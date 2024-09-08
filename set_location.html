@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Set Location{% endblock %}
+
+{% block content %}
+<form method="POST" id="locationForm">
+  <h3 align="center">Set Your Location</h3>
+  <div class="form-group">
+    <label for="location">Location</label>
+    <input type="text" class="form-control" id="location" name="location" placeholder="Enter your location" required />
+  </div>
+  <br />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<!-- Include jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Include geocomplete plugin -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-geocomplete/1.7.0/jquery.geocomplete.min.js"></script>
+<!-- Include Google Maps API (with Places library) -->
+<script src="https://maps.googleapis.com/maps/api/js?key={{ google_places_api_key }}&libraries=places"></script>
+
+<script>
+  $(function() {
+    $("#location").geocomplete()
+      .bind("geocode:result", function(event, result) {
+        console.log("Result: " + result.formatted_address);
+      })
+      .bind("geocode:error", function(event, status) {
+        console.log("ERROR: " + status);
+      })
+      .bind("geocode:multiple", function(event, results) {
+        console.log("Multiple: " + results.length + " results found");
+      });
+  });
+</script>
+{% endblock %}
+
+
+<!-- Include jQuery 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ Include jquery-autocomplete library 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.13/jquery.autocomplete.min.js"></script>
+<script>
+  $(function() {
+    var cityNames = '{{ city_names | tojson | safe }}'; // Use 'safe' filter to prevent auto-escaping
+
+    $('#location').autocomplete({
+      lookup: cityNames,
+      onSelect: function (suggestion) {
+        console.log('You selected: ' + suggestion.value);
+      }
+    });
+  });
+</script>
+-->

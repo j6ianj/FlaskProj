@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ user.first_name }}'s Profile</h1>
+<p>{{ user.bio }}</p>
+{% if user.photos %}
+<div id="photoCarousel" class="carousel slide mt-5 mx-auto" data-ride="carousel" style="width: 50%;">
+    <div class="carousel-inner">
+        {% for photo in user.photos %}
+        <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+            <img src="{{ url_for('static', filename='uploads/' + photo) }}" class="d-block w-100 carousel-img" alt="Profile Photo">
+        </div>
+        {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#photoCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#photoCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+{% endif %}
+<form action="{{ url_for('views.add_friend', friend_id=user.id) }}" method="post">
+    <button type="submit" class="btn btn-primary">Add Friend</button>
+</form>
+{% endblock %}
